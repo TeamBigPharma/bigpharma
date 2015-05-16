@@ -56,7 +56,7 @@ class Practitioner(models.Model):
 	title = models.CharField(max_length=200)
 
 	def __unicode__(self):
-		return u' '.join(self.title, self.first_name, self.last_name)
+		return u' '.join([self.title, self.first_name, self.last_name])
 
 
 class BaseFormulationModel(models.Model):
