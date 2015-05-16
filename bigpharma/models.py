@@ -37,7 +37,7 @@ class DrugFormulation(models.Model):
 	units = models.CharField(choices=UNIT_CHOICES, max_length=200)
 	state = models.CharField(choices=STATE_CHOICES, max_length=200)
 	drug = models.ForeignKey(opal_models.DrugLookupList)
-	custom_name = models.CharField(max_length=200, default="")
+	custom_name = models.CharField(max_length=200, blank=True, null=True)
 
 
 class Practitioner(models.Model):
