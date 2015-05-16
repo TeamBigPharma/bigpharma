@@ -4,9 +4,22 @@ from django.views.generic.edit import CreateView, UpdateView
 from .models import SuppliedFromPharmacist, DrugFormulation
 from django.core.urlresolvers import reverse_lazy
 
+
 class DrugFormulationCreateFormView(CreateView):
-	success_url = reverse_lazy("drug_formulation")
-	model = DrugFormulation
+    model = DrugFormulation
+
+
+class DrugFormulationUpdateFormView(UpdateView):
+    model = DrugFormulation
+
+
+class DrugFormulationDetailView(DetailView):
+    model = DrugFormulation
+
+
+class DrugFormulationListView(ListView):
+    model = DrugFormulation
+
 
 class SuppliedFromPharmacistCreateFormView(CreateView):
 	model = SuppliedFromPharmacist

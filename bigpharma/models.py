@@ -3,6 +3,7 @@ bigpharma models.
 """
 from django.db import models
 from django.contrib.auth import get_user_model
+from django.core.urlresolvers import reverse
 
 from opal import models as opal_models
 
@@ -38,6 +39,15 @@ class DrugFormulation(models.Model):
 	state = models.CharField(choices=STATE_CHOICES, max_length=200)
 	drug = models.ForeignKey(opal_models.DrugLookupList)
 	custom_name = models.CharField(max_length=200, blank=True, null=True)
+
+	def __unicode__(self):
+		if self.custom_name:
+			return self.custom_name
+		else:
+			return "{} - {}{}".format(self.drug, self.amount, self.units)
+
+	def get_absolute_url(self):
+		return reverse('formulation_detail', self.pk)
 
 
 class Practitioner(models.Model):
