@@ -8,31 +8,31 @@ from .models import SuppliedFromPharmacist, DrugFormulation, ReceivedByPharmacis
 from . import serializers
 
 
-class DrugFormulationViewSet(viewsets.ReadOnlyModelViewSet):
+class DrugFormulationViewSet(viewsets.ModelViewSet):
     # permission_classes = (permissions.IsAdminUser,)
     serializer_class = serializers.DrugFormulationSerializer
     queryset = DrugFormulation.objects.all()
 
 
-class SuppliedFromPharmacistViewSet(viewsets.ReadOnlyModelViewSet):
+class SuppliedFromPharmacistViewSet(viewsets.ModelViewSet):
     # permission_classes = (permissions.IsAdminUser,)
     serializer_class = serializers.SuppliedFromPharmacistSerializer
     queryset = SuppliedFromPharmacist.objects.all()
 
 
-class ReceivedByPharmacistViewSet(viewsets.ReadOnlyModelViewSet):
+class ReceivedByPharmacistViewSet(viewsets.ModelViewSet):
     # permission_classes = (permissions.IsAdminUser,)
     serializer_class = serializers.ReceivedByPharmacistSerializer
     queryset = ReceivedByPharmacist.objects.all()    
 
 
-class AdhocAdjustmentViewSet(viewsets.ReadOnlyModelViewSet):
+class AdhocAdjustmentViewSet(viewsets.ModelViewSet):
     # permission_classes = (permissions.IsAdminUser,)
     serializer_class = serializers.AdhocAdjustmentSerializer
     queryset = AdhocAdjustment.objects.all()    
 
 
-class PractitionerViewSet(viewsets.ReadOnlyModelViewSet):
+class PractitionerViewSet(viewsets.ModelViewSet):
     # permission_classes = (permissions.IsAdminUser,)
     serializer_class = serializers.PractitionerSerializer
     queryset = Practitioner.objects.all()  
