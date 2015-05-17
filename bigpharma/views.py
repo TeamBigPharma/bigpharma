@@ -23,19 +23,19 @@ class SuppliedFromPharmacistViewSet(viewsets.ModelViewSet):
 class ReceivedByPharmacistViewSet(viewsets.ModelViewSet):
     # permission_classes = (permissions.IsAdminUser,)
     serializer_class = serializers.ReceivedByPharmacistSerializer
-    queryset = ReceivedByPharmacist.objects.all()    
+    queryset = ReceivedByPharmacist.objects.all()
 
 
 class AdhocAdjustmentViewSet(viewsets.ModelViewSet):
     # permission_classes = (permissions.IsAdminUser,)
     serializer_class = serializers.AdhocAdjustmentSerializer
-    queryset = AdhocAdjustment.objects.all()    
+    queryset = AdhocAdjustment.objects.all()
 
 
 class PractitionerViewSet(viewsets.ModelViewSet):
     # permission_classes = (permissions.IsAdminUser,)
     serializer_class = serializers.PractitionerSerializer
-    queryset = Practitioner.objects.all()  
+    queryset = Practitioner.objects.all()
 
 
 class DrugFormulationCreateFormView(CreateView):
