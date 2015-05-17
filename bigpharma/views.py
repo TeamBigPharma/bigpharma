@@ -17,6 +17,11 @@ class DrugFormulationViewSet(viewsets.ModelViewSet):
 
 class SuppliedFromPharmacistViewSet(viewsets.ModelViewSet):
     # permission_classes = (permissions.IsAdminUser,)
+    
+    def create(self, request):
+        request.data['pharmacist'] = request.user.id
+        return super(SuppliedFromPharmacistViewSet, self).create(request)
+
     serializer_class = serializers.SuppliedFromPharmacistSerializer
     queryset = SuppliedFromPharmacist.objects.all()
 

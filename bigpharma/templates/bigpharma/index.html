@@ -22,38 +22,38 @@
             </div>
             <div class="panel-body">
               <p ng-show="profile.has_role('pharmacist')">
-              <button class="btn btn-primary btn-lg"
-                      ng-click="set_state('Booking')"
-                      >
-                {% icon "fa-truck" %}
-                Book in Delivery
-              </button>
-              </p>
-              <p>
-              <button class="btn btn-primary btn-lg"
-                      ng-click="set_state('Patient')"
-                      >
-                {% icon "fa-user" %}
-                Supply to Patient
-              </button>
-              </p>
-              <p>
-              <button class="btn btn-primary btn-lg"
-                      ng-click="set_state('Ward')"
-                      >
-                {% icon "fa-hospital-o" %}
-                Supply to ward
-              </button>
+                <button class="btn btn-primary btn-lg"
+                        ng-click="set_state('Booking')"
+                        >
+                  {% icon "fa-truck" %}
+                  Book in Delivery
+                </button>
               </p>
               <p>
                 <button class="btn btn-primary btn-lg"
-                      ng-click="set_state('Correction')"
-                      >
+                        ng-click="set_state('Patient')"
+                        >
+                  {% icon "fa-user" %}
+                  Supply to Patient
+                </button>
+              </p>
+              <p>
+                <button class="btn btn-primary btn-lg"
+                        ng-click="set_state('Ward')"
+                        >
+                  {% icon "fa-hospital-o" %}
+                  Supply to ward
+                </button>
+              </p>
+              <p>
+                <button class="btn btn-primary btn-lg"
+                        ng-click="set_state('Correction')"
+                        >
                   {% icon "fa-pencil" %}
                   Make correction
-              </button>
+                </button>
 
-              
+                
               </p>
               
             </div>
@@ -137,7 +137,21 @@
               <form class="form form-horizontal col-md-10">
 
                 {% select label="Product" model="ward.product" lookuplist="drug_list"%}
-                {% datepicker label="Date" model="ward.date" %}
+                {% datepicker label="Date" model="ward.datetime" %}
+                <div class="form-group">
+                  <label class="control-label col-sm-3">
+                    <i class="fa fa-clock-o"></i> Time
+                  </label>
+                  <div class="col-sm-8">
+                    <input type="text" class="form-control" 
+                           size="5"
+                           ng-model="ward.datetime" 
+                           data-time-format="HH:mm" 
+                           data-autoclose="1"
+                           bs-timepicker>
+                  </div>
+                </div>
+
                 {% input label="Collector" model="ward.collector" %}
                 {% input label="Ward Name" model="ward.ward_name" %}
                 {% input label="Quantity" model="ward.quantity" %}
