@@ -36,8 +36,6 @@
                   {% icon "fa-user" %}
                   Supply to Patient
                 </button>
-              </p>
-              <p>
                 <button class="btn btn-primary btn-lg"
                         ng-click="set_state('Ward')"
                         >
@@ -91,7 +89,7 @@
             </div>
           </div>
 
-
+          
           <!-- booking in a Patient -->
           <div class="panel panel-default" ng-show="state == 'Patient'">
             <div class="panel-heading">
@@ -103,18 +101,39 @@
             <div class="panel-body">
               <form class="form form-horizontal col-md-10">
 
-                {% input label="Product" model="patient.product" lookuplist="drug_list"%}
-                {% datepicker label="Date" model="patient.date" %}
-                {% input label="Patient Name" model="patient.patient_name" %}
-                {% textarea label="Patient Address" model="patient.patient_address" %}
+                {% select label="Product" model="patient.product" lookuplist="drug_list"%}
+                {% datepicker label="Date" model="patient.datetime" %}
+                <div class="form-group">
+                  <label class="control-label col-sm-3">
+                    <i class="fa fa-clock-o"></i> Time
+                  </label>
+                  <div class="col-sm-8">
+                    <input type="text" class="form-control" 
+                           size="5"
+                           ng-model="ward.datetime" 
+                           data-time-format="HH:mm" 
+                           data-autoclose="1"
+                           bs-timepicker>
+                  </div>
+                </div>
+                
+                {% select label="Patient Name" model="patient.patient_name" lookuplist="patient_name_list" %}
+                <div class="col-sm-offset-0">
+                  <button class="btn btn-secondary" ng-click="add_patient()">
+                    {% icon "glyphicon-plus" %}
+                    Add Patient
+                  </button>
+                  <br />
+                  <br />
+                </div>
                 {% input label="Prescriber" model="patient.prescriber" %}
 
-                <span class="col-md-offset-3">
+                <div class="col-sm-offset-4">
                   {% checkbox label="Collected by patient?" model="patient.collected_by_patient" %}
                   {% checkbox label="ID Confirmed?" model="patient.id_confirmed" %}
-                </span>
+                </div>
 
-                {% input label="Collector" model="patient.collector" hide="patient.collected_by_patient" %}
+                {% input label="Collector" model="patient.collector" %}
                 
                 {% input label="Quantity" model="patient.quantity" %}
 
