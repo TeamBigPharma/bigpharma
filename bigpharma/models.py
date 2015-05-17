@@ -87,6 +87,9 @@ class BaseFormulationModel(models.Model):
         formulation = models.ForeignKey(DrugFormulation)
         amount = models.IntegerField()
         cancelled = models.BooleanField(default=False)
+	cancellation_datetime = models.DateTimeField(null=True, blank=True)
+	cancellation_reason = models.TextField(blank=True)
+	cancelled_by = models.ForeignKey(User, null=True, blank=True, related_name='+')
 
 	# datetime is the datetime recorded by the user
         datetime = models.DateTimeField(default=timezone.now)

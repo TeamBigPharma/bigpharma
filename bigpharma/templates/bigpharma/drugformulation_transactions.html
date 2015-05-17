@@ -2,12 +2,17 @@
 
 {% block content %}
 {% with object_list|first as f %}
-<style>.deleted { text-decoration: strikethrough; } </style>
+<style>.deleted { text-decoration: strikethrough; }
+thead td, tfoot td {
+  font-weight: bold;
+}
+
+</style>
 <div class="container content-offset">
   <div class="row">
     <div class="col-md-9">
       <h1>{{ f.formulation }} </h1>
-      <table class="table table-striped table-bordered">
+      <table class="table table-striped">
         <thead>
           <td>Date</td>
           <td>Pharmacist</td>
@@ -25,7 +30,7 @@
 
 
         {% for transaction in object_list %}
-          <tr {% if transaction.cancelled %}class='deleted'{% endif %}>
+          <tr {% if transaction.cancelled %}class='deleted danger'{% endif %}>
             <td>{{ transaction.datetime|date:"M d, Y H:i" }}</td>
             <td>{{ transaction.pharmacist }}</td>
             <td>{{ transaction.authorising_practitioner }}</td>
@@ -39,7 +44,9 @@
             <td>{% if transaction.supplied_individual %}-{% endif %}{{ transaction.amount }}</td>
             <td>
               {% if not transaction.cancelled %}
-                <a href="tbc">Cancel</a>
+              {% if transaction.supplied_individual %}
+                <a href="{% url "supplied_from_cancel" transaction.pk %}">Cancel</a>
+              {% endif %}
               {% else %}
                 (Cancelled)
               {% endif %}

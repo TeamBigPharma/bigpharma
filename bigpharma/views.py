@@ -1,3 +1,4 @@
+from datetime import datetime
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView
@@ -5,6 +6,7 @@ from django.core.urlresolvers import reverse_lazy
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import viewsets, mixins
+from bigpharma.forms import SupplyCancellationForm, ReceiveCancellationForm, AdHocCancellationForm
 from .models import SuppliedFromPharmacist, DrugFormulation, ReceivedByPharmacist, AdhocAdjustment, Practitioner
 from . import serializers
 from django.shortcuts import get_object_or_404
@@ -92,6 +94,7 @@ class ReceivedByPharmacistCreateFormView(CreateView):
 class AdhocAdjustmentCreateFormView(CreateView):
     model = AdhocAdjustment
 
+
 class TransactionListView(ListView):
     template_name = 'bigpharma/drugformulation_transactions.html'
     def get_queryset(self):
@@ -100,3 +103,26 @@ class TransactionListView(ListView):
         transactions.extend(ReceivedByPharmacist.objects.filter(formulation=formulation))
         transactions.extend(AdhocAdjustment.objects.filter(formulation=formulation))
         return transactions
+
+
+class BaseCancelView(UpdateView):
+    template_name = 'bigpharma/cancel_form.html'
+    success_url = '/'
+
+    def form_valid(self, form):
+        form.instance.cancelled = True
+        form.instance.cancelled_by = self.request.user
+        form.instance.cancellation_datetime = datetime.now()
+        return super(BaseCancelView, self).form_valid(form)
+
+class CancelSuppliedFromPharmacistView(BaseCancelView):
+    model = SuppliedFromPharmacist
+    form_class = SupplyCancellationForm
+
+class CancelReceivedByPharmacistView(BaseCancelView):
+    model = ReceivedByPharmacist
+    form_class = ReceiveCancellationForm
+
+class CancelAdHocAdjustmentView(BaseCancelView):
+    model = AdhocAdjustment
+    form_class = AdHocCancellationForm

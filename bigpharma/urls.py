@@ -22,7 +22,11 @@ urlpatterns = patterns(
     url(r'^formulations/(?P<pk>\d+)/$', views.DrugFormulationDetailView.as_view(), name="formulation_detail"),
     url(r'^formulations/$', views.DrugFormulationListView.as_view(), name="formulation_list"),
     url(r'^transactions/(?P<formulation>\d+)/$', views.TransactionListView.as_view(), name="transactions_list"),
-    url(r'^supplied_from/', views.SuppliedFromPharmacistCreateFormView.as_view(), name="supplied_from"),
+    url(r'^inventory/$', views.DrugFormulationListView.as_view(), name="inventory"),
+    url(r'^supplied_from/$', views.SuppliedFromPharmacistCreateFormView.as_view(), name="supplied_from"),
+    url(r'^supplied_from/(?P<pk>\d+)/cancel', views.CancelSuppliedFromPharmacistView.as_view(), name="supplied_from_cancel"),
+    url(r'^received_by/(?P<pk>\d+)/cancel', views.CancelReceivedByPharmacistView.as_view(), name="received_by_cancel"),
+    url(r'^ad_hoc/(?P<pk>\d+)/cancel', views.CancelAdHocAdjustmentView.as_view(), name="ad_hoc_cancel"),
     url(r'^api/', include(router.urls)),
 )
 
