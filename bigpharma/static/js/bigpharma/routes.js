@@ -7,6 +7,7 @@ app.config(
                  controller: 'CDRCtrl',
                  resolve: {
                      profile: function(UserProfile){ return UserProfile },
+                     patients: function(Patients){ return Patients },
                      formulations: function(Formulations){ return Formulations }
                  },
                  templateUrl: '/templates/bigpharma/index.html'

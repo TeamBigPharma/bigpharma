@@ -1,0 +1,11 @@
+{% extends 'modal_base.html' %}
+{% load forms %}
+{% block icon_name %}glyphicon glyphicon-plus{% endblock %}
+{% block title %}Add Patient {% endblock %}
+{% block modal_body %}
+  <form class="form form-horizontal">
+    {% input label="Patient Name" model="editing.demographics.name" %}
+    {% textarea label="Patient Address" model="editing.demographics.address" %}
+  </form>
+{% endblock %}
+{% block modal_another %}{% endblock %}
