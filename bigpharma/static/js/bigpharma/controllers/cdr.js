@@ -44,7 +44,7 @@ angular.module('opal.controllers').controller(
             var data = {
                 amount: $scope.patient.quantity,
                 datetime: moment($scope.patient.datetime).format(),
-                formulation: $scope._drug_names_to_id[$scope.patient.product],
+                formulation: $scope._drug_names_to_id[$scope.ward.product],
                 patient: $scope.patient.patient_name,
                 supplied_individual: $scope.patient.collector || "Patient",
                 collected_by_patient: $scope.patient.collected_by_patient
