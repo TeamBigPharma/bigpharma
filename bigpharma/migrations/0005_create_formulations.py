@@ -4,6 +4,140 @@ from south.db import db
 from south.v2 import DataMigration
 from django.db import models
 
+DRUG_NAMES = [
+    "Abacavir",
+    "Aciclovir",
+    "Adefovir",
+    "Albendazole",
+    "Ambisome",
+    "Amikacin",
+    "Amoxicilin",
+    "Amphotericin",
+    "Artesunate",
+    "Atazanavir",
+    "Ataznavir",
+    "Atovaquone",
+    "Atripla",
+    "Azithromycin",
+    "Benznidazole",
+    "Benzylpenicillin",
+    "Bocepravir",
+    "Caspofungin",
+    "Cefadroxil",
+    "Cefixime",
+    "Cefotaxime",
+    "Ceftazidime",
+    "Ceftriaxone",
+    "Cefuroxime",
+    "Chloramphenicol",
+    "Chloroquine",
+    "Cidofovir",
+    "Ciprofloxacin",
+    "Clarithromycin",
+    "Clindamycin",
+    "Clotrimazole",
+    "Co-Amoxiclav",
+    "Co-Trimoxazole",
+    "Colistin",
+    "Combivir",
+    "Daktacort",
+    "Daptomycin",
+    "Darunavir",
+    "Didanosine",
+    "Doxycycline",
+    "Efavirenz",
+    "Emtricitabine",
+    "Enfurvitide",
+    "Entecavir",
+    "Ertapenem",
+    "Erythromycin",
+    "Ethambutol",
+    "Famciclovir",
+    "Fansidar",
+    "Fidaxomicin",
+    "Flucloxacillin",
+    "Fluconazole",
+    "Flucytosine",
+    "Fosamprenavir",
+    "Foscarnet",
+    "Fosfomycin",
+    "Fusidate",
+    "Ganciclovir",
+    "Gentamicin",
+    "Griseofulvin",
+    "Indinavir",
+    "Isoniazid",
+    "Itraconazole",
+    "Ivermectin",
+    "Kaletra",
+    "Ketoconazole",
+    "Kivexxa",
+    "Lamivudine",
+    "Linezolid",
+    "Lopinavir",
+    "Malarone",
+    "Mebendazole",
+    "Meropenem",
+    "Methadone",
+    "Metronidazole",
+    "Miconazole",
+    "Miltefosine",
+    "Minocycline",
+    "Moxifloxacin",
+    "Nelfinavir",
+    "Neomycin",
+    "Nevirapine",
+    "Nitazoxanide",
+    "Nitrofurantoin",
+    "Ofloxacin",
+    "Oseltamivir",
+    "Peg-Interferon",
+    "Penicillin V",
+    "Pentamidine",
+    "Piperacillin Tazobactam",
+    "Posaconazole",
+    "Praziquantel",
+    "Primaquine",
+    "Procaine Benzylpenicillin",
+    "Pyrazinamide",
+    "Pyrimethamine",
+    "Quinine",
+    "Raltegravir",
+    "Riamet",
+    "Ribavarin",
+    "Rifabutin",
+    "Rifampicin",
+    "Rifinah",
+    "Rifinah 150",
+    "Rifinah 300",
+    "Ritonavir",
+    "Saquinavir",
+    "Sodium stibogluconate",
+    "Spectinomycin",
+    "Stavudine",
+    "Sulfadoxine",
+    "Teicoplanin",
+    "Telaprevir",
+    "Temocillin",
+    "Tenofovir",
+    "Terbinafine",
+    "Tetracycline",
+    "Tinidazole",
+    "Tipranavir",
+    "Tobramycin",
+    "Tramadol",
+    "Triclabendazole",
+    "Trimethroprim",
+    "Trizivir",
+    "Truvada",
+    "Valaciclovir",
+    "Valganciclovir",
+    "Vancomycin",
+    "Voriconazole",
+    "Zanamavir",
+    "Zidovudine",
+    "Morphine"]
+
 class Migration(DataMigration):
 
     def forwards(self, orm):
@@ -11,26 +145,33 @@ class Migration(DataMigration):
         # Note: Don't use "from appname.models import ModelName". 
         # Use orm.ModelName to refer to models in this application,
         # and orm['appname.ModelName'] for models in other applications.
+        for i in DRUG_NAMES:
+            orm.Drug.objects.create(name=i)
+
+        morphine = orm.Drug.objects.get(pk="Morphine")
+        zidovudine = orm.Drug.objects.get(pk="Zidovudine")
+        zanamavir = orm.Drug.objects.get(pk="Zanamavir")
+
         orm.DrugFormulation.objects.create(
-            **{'units': u'mg', 'state': u'tablets', 'amount': 400, 'custom_name': u'', 'drug_id': 130}
+            **{'units': u'mg', 'state': u'tablets', 'amount': 400, 'custom_name': u'', 'drug': morphine}
         )
         orm.DrugFormulation.objects.create(
-            **{'units': u'mg', 'state': u'tablets', 'amount': 400, 'custom_name': u'', 'drug_id': 130}
+            **{'units': u'mg', 'state': u'tablets', 'amount': 400, 'custom_name': u'', 'drug': morphine}
         )
         orm.DrugFormulation.objects.create(
-            **{'units': u'mg', 'state': u'tablets', 'amount': 400, 'custom_name': u'', 'drug_id': 130}
+            **{'units': u'mg', 'state': u'tablets', 'amount': 400, 'custom_name': u'', 'drug': morphine}
         )
         orm.DrugFormulation.objects.create(
-            **{'units': u'mg', 'state': u'tablets', 'amount': 30, 'custom_name': u'MXL 30mg caps', 'drug_id': 131}
+            **{'units': u'mg', 'state': u'tablets', 'amount': 30, 'custom_name': u'MXL 30mg caps', 'drug': zidovudine}
         )
         orm.DrugFormulation.objects.create(
-            **{'units': u'mg', 'state': u'tablets', 'amount': 30, 'custom_name': u'MXL 30mg caps', 'drug_id': 131}
+            **{'units': u'mg', 'state': u'tablets', 'amount': 30, 'custom_name': u'MXL 30mg caps', 'drug': zidovudine}
         )
         orm.DrugFormulation.objects.create(
-            **{'units': u'mg', 'state': u'tablets', 'amount': 90, 'custom_name': u'MXL 90mg caps', 'drug_id': 131}
+            **{'units': u'mg', 'state': u'tablets', 'amount': 90, 'custom_name': u'MXL 90mg caps', 'drug': zidovudine}
         )
         orm.DrugFormulation.objects.create(
-            **{'units': u'mg', 'state': u'powder', 'amount': 2, 'custom_name': u'100', 'drug_id': 3}
+            **{'units': u'mg', 'state': u'powder', 'amount': 2, 'custom_name': u'100', 'drug': zanamavir}
         )
 
 
@@ -127,11 +268,15 @@ class Migration(DataMigration):
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'provisional': ('django.db.models.fields.BooleanField', [], {})
         },
+        u'bigpharma.drug': {
+            'Meta': {'object_name': 'Drug'},
+            'name': ('django.db.models.fields.CharField', [], {'max_length': '200', 'primary_key': 'True'})
+        },
         u'bigpharma.drugformulation': {
             'Meta': {'object_name': 'DrugFormulation'},
             'amount': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'}),
             'custom_name': ('django.db.models.fields.CharField', [], {'max_length': '200', 'null': 'True', 'blank': 'True'}),
-            'drug': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['opal.Drug']"}),
+            'drug': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['bigpharma.Drug']"}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'state': ('django.db.models.fields.CharField', [], {'max_length': '200'}),
             'units': ('django.db.models.fields.CharField', [], {'max_length': '200'})

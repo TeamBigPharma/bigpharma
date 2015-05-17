@@ -18,6 +18,9 @@ class Antimicrobial(opal_models.Antimicrobial): pass
 class Investigation(opal_models.Investigation): pass
 
 
+class Drug(models.Model):
+	name = models.CharField(max_length=200, primary_key=True)
+
 class DrugFormulation(models.Model):
 	STATE_CHOICES = (
 		('powder', 'powder',),
@@ -37,7 +40,7 @@ class DrugFormulation(models.Model):
 	amount = models.IntegerField(blank=True, null=True)
 	units = models.CharField(choices=UNIT_CHOICES, max_length=200)
 	state = models.CharField(choices=STATE_CHOICES, max_length=200)
-	drug = models.ForeignKey(opal_models.DrugLookupList)
+	drug = models.ForeignKey(Drug)
 	custom_name = models.CharField(max_length=200, blank=True, null=True)
 
 	def __unicode__(self):
