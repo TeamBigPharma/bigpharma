@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container content-offset">
+  <div class="row">
+    <div class="col-md-9">
+      <h1>Cancel {{ object }}</h1>
+      <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class="btn btn-danger" type="submit">Cancel</button>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}
