@@ -86,20 +86,19 @@ class BaseFormulationModel(models.Model):
 	class Meta:
 		abstract=True
 
+                
+class Supplier(opal_models.LocatedModel):
+	name = models.CharField(max_length=200)	
+        
 	def __unicode__(self):
 		return '{} {}'.format(self.amount, self.formulation)
 
 
-class Supplier(opal_models.LocatedModel):
-	name = models.CharField(max_length=200)	
-
-	def __unicode__(self):
-		return self.name
-
 class SuppliedFromPharmacist(BaseFormulationModel):
 	# when you're giving a one to many formulations to a patient/nurse to take away
 	authorising_practitioner = models.ForeignKey(Practitioner, related_name="authorised_supplies")
-	receiving_practitioner = models.ForeignKey(Practitioner, blank=True, null=True, related_name="received_supplies")
+	supplied_individual = models.CharField(max_length=200)
+	collected_by_patient = models.BooleanField(default=False)
 	patient = models.ForeignKey(opal_models.Patient, blank=True, null=True)
 
 

@@ -23,6 +23,7 @@ urlpatterns = patterns(
     url(r'^formulations/$', views.DrugFormulationListView.as_view(), name="formulation_list"),
     url(r'^supplied_from/', views.SuppliedFromPharmacistCreateFormView.as_view(), name="supplied_from"),
     url(r'^api/', include(router.urls)),
+
 )
 
 urlpatterns += opatterns

@@ -3,6 +3,8 @@ from .models import SuppliedFromPharmacist, DrugFormulation, ReceivedByPharmacis
 
 
 class DrugFormulationSerializer(serializers.ModelSerializer):
+#    name = serializers.RelatedField(source='drug')
+    
     class Meta:
         model = DrugFormulation
 
