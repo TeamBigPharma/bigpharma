@@ -47,7 +47,7 @@ class DrugFormulation(models.Model):
 			return u'{} - {}{}'.format(self.drug, self.amount, self.units)
 
 	def get_absolute_url(self):
-		return reverse('formulation_detail', self.pk)
+		return reverse('formulation_detail', args=[self.pk])
 
 
 class Practitioner(models.Model):
