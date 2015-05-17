@@ -21,7 +21,7 @@ urlpatterns = patterns(
     url(r'^formulations/(?P<pk>\d+)/edit', views.DrugFormulationUpdateFormView.as_view(), name="formulation_edit"),
     url(r'^formulations/(?P<pk>\d+)/$', views.DrugFormulationDetailView.as_view(), name="formulation_detail"),
     url(r'^formulations/$', views.DrugFormulationListView.as_view(), name="formulation_list"),
-    url(r'^supplied_from/', views.SuppliedFromPharmacistqCreateFormView.as_view(), name="supplied_from"),
+    url(r'^supplied_from/', views.SuppliedFromPharmacistCreateFormView.as_view(), name="supplied_from"),
     url(r'^api/', include(router.urls)),
 
 )
