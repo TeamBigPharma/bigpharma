@@ -46,7 +46,13 @@ thead td, tfoot td {
               {% if not transaction.cancelled %}
               {% if transaction.supplied_individual %}
                 <a href="{% url "supplied_from_cancel" transaction.pk %}">Cancel</a>
+
+              {% elif transaction.supplier %}
+              <a href="{% url "received_by_cancel" transaction.pk %}">Cancel</a>
+              {% else %}
+              <a href="{% url "ad_hoc_cancel" transaction.pk %}">Cancel</a>
               {% endif %}
+
               {% else %}
                 (Cancelled)
               {% endif %}
