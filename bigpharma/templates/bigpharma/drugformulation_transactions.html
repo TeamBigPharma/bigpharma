@@ -1,20 +1,20 @@
 {% extends "base.html" %}
 
 {% block content %}
-<style>.deleted { text-decoration: strikethrough; } td { padding: 30px; } thead td {background-color: #EEE; border: 1px solid #444}</style>
-
+{% with object_list|first as f %}
+<style>.deleted { text-decoration: strikethrough; } </style>
 <div class="container content-offset">
   <div class="row">
     <div class="col-md-9">
-      <h1>{{ object_list.first.formulation }} </h1>
-      <table style="width: 100%; border: 1px solid #444">
+      <h1>{{ f.formulation }} </h1>
+      <table class="table table-striped table-bordered">
         <thead>
           <td>Date</td>
           <td>Pharmacist</td>
           <td>Authorised By</td>
           <td>Collector/Supplier</td>
           <td>Ward / Patient</td>
-          <td>Amount ({{ object_list.first.formulation.get_stock_units }})</td>
+          <td>Amount ({{ f.formulation.get_stock_units }})</td>
           <td></td> {# cancel button/link, plus cancellation or correction reason #}
         </thead>
         <tbody>
@@ -26,7 +26,7 @@
 
         {% for transaction in object_list %}
           <tr {% if transaction.cancelled %}class='deleted'{% endif %}>
-            <td>{{ transaction.datetime }}</td>
+            <td>{{ transaction.datetime|date:"M d, Y H:i" }}</td>
             <td>{{ transaction.pharmacist }}</td>
             <td>{{ transaction.authorising_practitioner }}</td>
             <td>{% if transaction.supplied_individual %}{{ transaction.supplied_individual }}{% endif %}
@@ -36,7 +36,7 @@
                 <i class="fa fa-user">collected</i>
               {% endif %}
             </td>
-            <td>{{ transaction.amount }}</td>
+            <td>{% if transaction.supplied_individual %}-{% endif %}{{ transaction.amount }}</td>
             <td>
               {% if not transaction.cancelled %}
                 <a href="tbc">Cancel</a>
@@ -52,7 +52,7 @@
         <tfoot>
           <tr style="background-color: #FFF">
             <td colspan="5">Current Stock</td>
-            <td>{{ object_list.first.formulation.get_stock }}</td><td></td>
+            <td>{{ f.formulation.get_stock }}</td><td></td>
           </tr>
         </tfoot>
 
@@ -60,4 +60,5 @@
     </div>
   </div>
 </div>
+{% endwith %}
 {% endblock %}

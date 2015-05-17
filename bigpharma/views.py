@@ -92,5 +92,7 @@ class TransactionListView(ListView):
     template_name = 'bigpharma/drugformulation_transactions.html'
     def get_queryset(self):
         formulation = get_object_or_404(DrugFormulation, pk=self.kwargs['formulation'])
-        transactions = SuppliedFromPharmacist.objects.filter(formulation=formulation)
+        transactions = list(SuppliedFromPharmacist.objects.filter(formulation=formulation))
+        transactions.extend(ReceivedByPharmacist.objects.filter(formulation=formulation))
+        transactions.extend(AdhocAdjustment.objects.filter(formulation=formulation))
         return transactions
