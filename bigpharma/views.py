@@ -20,6 +20,10 @@ class SuppliedFromPharmacistViewSet(viewsets.ModelViewSet):
     
     def create(self, request):
         request.data['pharmacist'] = request.user.id
+        if 'patient' in request.data:
+            from opal.models import Patient
+            p = Patient.objects.get(demographics__name=request.data['patient'])
+            request.data['patient'] = p.id
         return super(SuppliedFromPharmacistViewSet, self).create(request)
 
     serializer_class = serializers.SuppliedFromPharmacistSerializer

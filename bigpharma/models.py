@@ -10,7 +10,9 @@ from opal import models as opal_models
 
 User = get_user_model()
 
-class Demographics(opal_models.Demographics): pass
+class Demographics(opal_models.Demographics):
+        address = models.TextField(blank=True, null=True)
+        
 class Location(opal_models.Location): pass
 class Allergies(opal_models.Allergies): pass
 class Diagnosis(opal_models.Diagnosis): pass
@@ -101,7 +103,9 @@ class Supplier(opal_models.LocatedModel):
 
 class SuppliedFromPharmacist(BaseFormulationModel):
 	# when you're giving a one to many formulations to a patient/nurse to take away
-	authorising_practitioner = models.ForeignKey(Practitioner, related_name="authorised_supplies", blank=True, null=True)
+	authorising_practitioner = models.ForeignKey(Practitioner,
+                                                     related_name="authorised_supplies",
+                                                     blank=True, null=True)
 	supplied_individual = models.CharField(max_length=200)
         ward = models.CharField(max_length=200, blank=True, null=True)
 	collected_by_patient = models.BooleanField(default=False)
