@@ -95,7 +95,7 @@ class Supplier(opal_models.LocatedModel):
 	name = models.CharField(max_length=200)	
         
 	def __unicode__(self):
-		return '{} {}'.format(self.amount, self.formulation)
+		return self.name
 
 
 class SuppliedFromPharmacist(BaseFormulationModel):
@@ -105,10 +105,17 @@ class SuppliedFromPharmacist(BaseFormulationModel):
 	collected_by_patient = models.BooleanField(default=False)
 	patient = models.ForeignKey(opal_models.Patient, blank=True, null=True)
 
+	def __unicode__(self):
+		return u'{} {} supplied to {}'.format(
+			self.amount, self.formulation, self.supplied_individual)
 
 class ReceivedByPharmacist(BaseFormulationModel):
 	# when an external supplier brings in drugs
 	supplier = models.ForeignKey(Supplier)
+
+	def __unicode__(self):
+		return u'{} {} received from {}'.format(
+			self.amount, self.formulation, self.supplier)
 
 
 class AdhocAdjustment(BaseFormulationModel):
