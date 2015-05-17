@@ -3,13 +3,20 @@ angular.module('opal.controllers').controller(
                         growl,
                         formulations){
         
-        $scope.state = 'Initial';
         $scope.profile = profile;
         $scope.formulations = formulations;
-        $scope.drug_list = _.map(formulations, function(f){ return f.drug });
+        $scope.drug_list = _.map(formulations, function(f){ return f.drug + ' ' + f.amount + ' ' + f.units });
 
-        $scope.booking = {};
-        $scope.patient = {};
+        console.log($scope.formulations)
+        console.log($scope.drug_list)
+        
+        $scope.initial_state = function(){
+            $scope.state = 'Initial';
+            $scope.booking = {};
+            $scope.patient = {};
+            $scope.ward = {};
+        };
+        $scope.initial_state();
         
         $scope.set_state = function(what){ $scope.state = what };
 
@@ -21,9 +28,18 @@ angular.module('opal.controllers').controller(
 
         $scope.save_patient = function(){
             $scope.set_state('Initial');
-            growl.info('Dispensed to Patient')
+            growl.info('Supplied to Patient')
             $scope.patient = {};
         }
+
+        $scope.save_ward = function(){
+            $scope.set_state('Initial');
+            growl.info('Supplied to ward');
+            $scope.ward = {};
+        }
         
+        $scope.back_to_initial = function(){
+            $scope.initial_state()
+        }
     }
 );

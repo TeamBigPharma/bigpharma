@@ -4,7 +4,7 @@
     <div class="panel-heading">
       <h2>
         
-        Controllerd Drug Register
+        Controlled Drug Register
       </h2>
     </div>
 
@@ -72,6 +72,12 @@
                 {% datepicker label="Date" model="booking.date" %}
                 {% select label="Supplier" model="booking.supplier" lookuplist="['GSK', 'Johnson & Johnson']" %}
                 {% input label="Quantity" model="booking.quantity" %}
+
+                <button class="btn" ng-click="back_to_initial()">
+                  {% icon "fa-close" %}
+                  Cancel
+                </button>
+
                 <button class="btn btn-lg btn-primary pull-right" ng-click="save_booking()">
                   {% icon "fa-save" %}
                   Save
@@ -97,11 +103,20 @@
                 {% input label="Patient Name" model="patient.patient_name" %}
                 {% textarea label="Patient Address" model="patient.patient_address" %}
                 {% input label="Prescriber" model="patient.prescriber" %}
-                {% input label="Collector" model="patient.collector" %}
+
+                <span class="col-md-offset-3">
+                  {% checkbox label="Collected by patient?" model="patient.collected_by_patient" %}
+                  {% checkbox label="ID Confirmed?" model="patient.id_confirmed" %}
+                </span>
+
+                {% input label="Collector" model="patient.collector" hide="patient.collected_by_patient" %}
                 
-                {% checkbox label="ID Confirmed?" model="patient_id_confirmed" %}
-                {% input label="Quantity" model="patient.quantit" %}
-                
+                {% input label="Quantity" model="patient.quantity" %}
+
+                <button class="btn" ng-click="back_to_initial()">
+                  {% icon "fa-close" %}
+                  Cancel
+                </button>                
                 <button class="btn btn-lg btn-primary pull-right" ng-click="save_patient()">
                   {% icon "fa-save" %}
                   Save
@@ -110,7 +125,33 @@
             </div>
           </div>
 
+          <!-- Supply to Ward -->
+          <div class="panel panel-default" ng-show="state == 'Ward'">
+            <div class="panel-heading">
+              <p class="lead">
+                {% icon "fa-hospital-0" %}
+                Supply to a <b>ward</b>
+              </p>
+            </div>
+            <div class="panel-body">
+              <form class="form form-horizontal col-md-10">
 
+                {% select label="Product" model="ward.product" lookuplist="drug_list"%}
+                {% datepicker label="Date" model="ward.date" %}
+                {% input label="Collector" model="ward.collector" %}
+                {% input label="Quantity" model="ward.quantity" %}
+                
+                <button class="btn" ng-click="back_to_initial()">
+                  {% icon "fa-close" %}
+                  Cancel
+                </button>
+                <button class="btn btn-lg btn-primary pull-right" ng-click="save_ward()">
+                  {% icon "fa-save" %}
+                  Save
+                </button>
+              </form>
+            </div>
+          </div>
           
         </div>
       </div>
