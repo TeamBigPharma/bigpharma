@@ -21,6 +21,10 @@ class Investigation(opal_models.Investigation): pass
 class Drug(models.Model):
 	name = models.CharField(max_length=200, primary_key=True)
 
+	def __unicode__(self):
+		return self.name
+
+
 class DrugFormulation(models.Model):
 	STATE_CHOICES = (
 		('powder', 'powder',),
