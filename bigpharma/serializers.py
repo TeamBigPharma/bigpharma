@@ -4,9 +4,13 @@ from .models import SuppliedFromPharmacist, DrugFormulation, ReceivedByPharmacis
 
 class DrugFormulationSerializer(serializers.ModelSerializer):
 #    name = serializers.RelatedField(source='drug')
+    stock = serializers.SerializerMethodField()
     
     class Meta:
         model = DrugFormulation
+
+    def get_stock(self, obj):
+        return '{} {}'.format(obj.get_stock(), obj.get_stock_units())
 
 
 class SuppliedFromPharmacistSerializer(serializers.ModelSerializer):
