@@ -2,6 +2,10 @@
 {% block content %}
 <form style="margin-top: 200px;" action="" method="post">{% csrf_token %}
     {{ form.as_p }}
-    <input type="submit" value="Create" />
+    {% if form.instance.pk %}
+    <input class="btn btn-primary" type="submit" value="Save" />
+    {% else %}
+    <input class="btn btn-primary" type="submit" value="Create" />
+    {% endif %}
 </form>
 {% endblock %}

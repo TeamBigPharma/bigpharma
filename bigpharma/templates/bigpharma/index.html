@@ -31,7 +31,7 @@
               </p>
               <p>
               <button class="btn btn-primary btn-lg"
-                      ng-click="set_state('Booking')"
+                      ng-click="set_state('Patient')"
                       >
                 {% icon "fa-user" %}
                 Supply to Patient
@@ -39,7 +39,7 @@
               </p>
               <p>
               <button class="btn btn-primary btn-lg"
-                      ng-click="set_state('Booking')"
+                      ng-click="set_state('Ward')"
                       >
                 {% icon "fa-hospital-o" %}
                 Supply to ward
@@ -47,7 +47,7 @@
               </p>
               <p>
                 <button class="btn btn-primary btn-lg"
-                      ng-click="set_state('Booking')"
+                      ng-click="set_state('Correction')"
                       >
                   {% icon "fa-pencil" %}
                   Make correction
@@ -68,13 +68,49 @@
             </div>
             <div class="panel-body">
               <form class="form form-horizontal col-md-10">
-                {% input label="Product" model="booking.product" lookuplist="['morphene', 'cocaine']"%}
+                {% input label="Product" model="booking.product" lookuplist="drug_list"%}
                 {% datepicker label="Date" model="booking.date" %}
                 {% select label="Supplier" model="booking.supplier" lookuplist="['GSK', 'Johnson & Johnson']" %}
                 {% input label="Quantity" model="booking.quantity" %}
+                <button class="btn btn-lg btn-primary pull-right" ng-click="save_booking()">
+                  {% icon "fa-save" %}
+                  Save
+                </button>
               </form>
             </div>
           </div>
+
+
+          <!-- booking in a Patient -->
+          <div class="panel panel-default" ng-show="state == 'Patient'">
+            <div class="panel-heading">
+              <p class="lead">
+                {% icon "fa-user" %}
+                Supply to a <b>Patient</b>
+              </p>
+            </div>
+            <div class="panel-body">
+              <form class="form form-horizontal col-md-10">
+
+                {% input label="Product" model="patient.product" lookuplist="drug_list"%}
+                {% datepicker label="Date" model="patient.date" %}
+                {% input label="Patient Name" model="patient.patient_name" %}
+                {% textarea label="Patient Address" model="patient.patient_address" %}
+                {% input label="Prescriber" model="patient.prescriber" %}
+                {% input label="Collector" model="patient.collector" %}
+                
+                {% checkbox label="ID Confirmed?" model="patient_id_confirmed" %}
+                {% input label="Quantity" model="patient.quantit" %}
+                
+                <button class="btn btn-lg btn-primary pull-right" ng-click="save_patient()">
+                  {% icon "fa-save" %}
+                  Save
+                </button>
+              </form>
+            </div>
+          </div>
+
+
           
         </div>
       </div>
