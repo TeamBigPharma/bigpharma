@@ -2,7 +2,7 @@ angular.module('opal.controllers').controller(
     'CDRCtrl', function($scope, $rootScope, $http,
                         profile,
                         growl,
-                        formulations){
+                        formulations, patients){
         
         $scope.profile = profile;
         $scope.formulations = formulations;
@@ -19,7 +19,7 @@ angular.module('opal.controllers').controller(
         $scope.initial_state = function(){
             $scope.state = 'Initial';
             $scope.booking = {datetime: new Date()};
-            $scope.patient = {};
+            $scope.patient = {datetime: new Date()};
             $scope.ward = { datetime: new Date() };
         };
         $scope.initial_state();

@@ -86,7 +86,7 @@
             </div>
           </div>
 
-
+          
           <!-- booking in a Patient -->
           <div class="panel panel-default" ng-show="state == 'Patient'">
             <div class="panel-heading">
@@ -98,10 +98,29 @@
             <div class="panel-body">
               <form class="form form-horizontal col-md-10">
 
-                {% input label="Product" model="patient.product" lookuplist="drug_list"%}
-                {% datepicker label="Date" model="patient.date" %}
+                {% select label="Product" model="patient.product" lookuplist="drug_list"%}
+                {% datepicker label="Date" model="patient.datetime" %}
+                <div class="form-group">
+                  <label class="control-label col-sm-3">
+                    <i class="fa fa-clock-o"></i> Time
+                  </label>
+                  <div class="col-sm-8">
+                    <input type="text" class="form-control" 
+                           size="5"
+                           ng-model="ward.datetime" 
+                           data-time-format="HH:mm" 
+                           data-autoclose="1"
+                           bs-timepicker>
+                  </div>
+                </div>
+                
                 {% input label="Patient Name" model="patient.patient_name" %}
-                {% textarea label="Patient Address" model="patient.patient_address" %}
+                
+                <button class="btn btn-secondary" ng-click="add_patient()">
+                  {% icon "glyphicon-plus" %}
+                  Add Patient
+                </button>
+                <!-- {% textarea label="Patient Address" model="patient.patient_address" %} -->
                 {% input label="Prescriber" model="patient.prescriber" %}
 
                 <span class="col-md-offset-3">
