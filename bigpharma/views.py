@@ -107,7 +107,7 @@ class TransactionListView(ListView):
 
 class BaseCancelView(UpdateView):
     template_name = 'bigpharma/cancel_form.html'
-    success_url = '/'
+    success_url = reverse_lazy('formulation_list')
 
     def form_valid(self, form):
         form.instance.cancelled = True
