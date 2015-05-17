@@ -3,6 +3,7 @@ bigpharma models.
 """
 from django.db import models
 from django.contrib.auth import get_user_model
+from django.core.urlresolvers import reverse
 
 from opal import models as opal_models
 
@@ -39,11 +40,23 @@ class DrugFormulation(models.Model):
 	drug = models.ForeignKey(opal_models.DrugLookupList)
 	custom_name = models.CharField(max_length=200, blank=True, null=True)
 
+	def __unicode__(self):
+		if self.custom_name:
+			return self.custom_name
+		else:
+			return u'{} - {}{}'.format(self.drug, self.amount, self.units)
+
+	def get_absolute_url(self):
+		return reverse('formulation_detail', self.pk)
+
 
 class Practitioner(models.Model):
 	first_name = models.CharField(max_length=200)
 	last_name = models.CharField(max_length=200)
 	title = models.CharField(max_length=200)
+
+	def __unicode__(self):
+		return u' '.join([self.title, self.first_name, self.last_name])
 
 
 class BaseFormulationModel(models.Model):
@@ -56,10 +69,15 @@ class BaseFormulationModel(models.Model):
 	class Meta:
 		abstract=True
 
+	def __unicode__(self):
+		return '{} {}'.format(self.amount, self.formulation)
+
 
 class Supplier(opal_models.LocatedModel):
 	name = models.CharField(max_length=200)	
 
+	def __unicode__(self):
+		return self.name
 
 class SuppliedFromPharmacist(BaseFormulationModel):
 	# when you're giving a one to many formulations to a patient/nurse to take away

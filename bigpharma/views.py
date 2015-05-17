@@ -38,9 +38,19 @@ class PractitionerViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Practitioner.objects.all()  
 
 
-
 class DrugFormulationCreateFormView(CreateView):
-    success_url = reverse_lazy("drug_formulation")
+    model = DrugFormulation
+
+
+class DrugFormulationUpdateFormView(UpdateView):
+    model = DrugFormulation
+
+
+class DrugFormulationDetailView(DetailView):
+    model = DrugFormulation
+
+
+class DrugFormulationListView(ListView):
     model = DrugFormulation
 
 
