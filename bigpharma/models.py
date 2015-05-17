@@ -85,7 +85,12 @@ class BaseFormulationModel(models.Model):
 	formulation = models.ForeignKey(DrugFormulation)
 	amount = models.IntegerField()
 	cancelled = models.BooleanField(default=False)
+
+	# datetime is the datetime recorded by the user
 	datetime = models.DateTimeField(default=timezone.now)
+
+	# created is the datetime stamp on the serverp
+	created = models.DateTimeField(auto_now_add=True)
 	pharmacist = models.ForeignKey(User)
 
 	class Meta:

@@ -4,18 +4,26 @@ from django.views.generic.edit import CreateView, UpdateView
 from django.core.urlresolvers import reverse_lazy
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework import viewsets
+from rest_framework import viewsets, mixins
 from .models import SuppliedFromPharmacist, DrugFormulation, ReceivedByPharmacist, AdhocAdjustment, Practitioner
 from . import serializers
 
 
-class DrugFormulationViewSet(viewsets.ModelViewSet):
+class ReadAndCreateModelViewSet(
+                            mixins.CreateModelMixin,
+                            mixins.RetrieveModelMixin,
+                            mixins.ListModelMixin,
+                            viewsets.GenericViewSet):
+    pass
+
+
+class DrugFormulationViewSet(ReadAndCreateModelViewSet):
     # permission_classes = (permissions.IsAdminUser,)
     serializer_class = serializers.DrugFormulationSerializer
     queryset = DrugFormulation.objects.all()
 
 
-class SuppliedFromPharmacistViewSet(viewsets.ModelViewSet):
+class SuppliedFromPharmacistViewSet(ReadAndCreateModelViewSet):
     # permission_classes = (permissions.IsAdminUser,)
     
     def create(self, request):
@@ -26,19 +34,19 @@ class SuppliedFromPharmacistViewSet(viewsets.ModelViewSet):
     queryset = SuppliedFromPharmacist.objects.all()
 
 
-class ReceivedByPharmacistViewSet(viewsets.ModelViewSet):
+class ReceivedByPharmacistViewSet(ReadAndCreateModelViewSet):
     # permission_classes = (permissions.IsAdminUser,)
     serializer_class = serializers.ReceivedByPharmacistSerializer
     queryset = ReceivedByPharmacist.objects.all()
 
 
-class AdhocAdjustmentViewSet(viewsets.ModelViewSet):
+class AdhocAdjustmentViewSet(ReadAndCreateModelViewSet):
     # permission_classes = (permissions.IsAdminUser,)
     serializer_class = serializers.AdhocAdjustmentSerializer
     queryset = AdhocAdjustment.objects.all()
 
 
-class PractitionerViewSet(viewsets.ModelViewSet):
+class PractitionerViewSet(ReadAndCreateModelViewSet):
     # permission_classes = (permissions.IsAdminUser,)
     serializer_class = serializers.PractitionerSerializer
     queryset = Practitioner.objects.all()
@@ -51,6 +59,7 @@ class SupplyToWardViewSet(viewsets.ViewSet):
         # {u'date': u'06/05/2015', u'product': u'Morphine 400 mg', u'collector': u'David', u'ward_name': u't8', u'quantity': u'97809'}        
         print request.data
         return Response('DONE')
+
 
 class DrugFormulationCreateFormView(CreateView):
     model = DrugFormulation

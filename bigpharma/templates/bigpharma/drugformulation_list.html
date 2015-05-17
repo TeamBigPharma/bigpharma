@@ -7,9 +7,7 @@
       <ul>
         {% for formulation in drugformulation_list %}
         <li>
-          <a href="{% url 'formulation_edit' formulation.pk %}">
             {{ formulation }} - {{ formulation.get_stock }} {{ formulation.get_stock_units }}
-          </a>
         </li>
         {% endfor %}
       </ul>
