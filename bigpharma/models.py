@@ -52,6 +52,20 @@ class DrugFormulation(models.Model):
 	def get_absolute_url(self):
 		return reverse('formulation_detail', args=[self.pk])
 
+	def get_stock(self):
+	    quantity_in = ReceivedByPharmacist.objects.filter(cancelled=False, formulation=self).aggregate(models.Sum('amount'))['amount__sum'];
+	    quantity_out = SuppliedFromPharmacist.objects.filter(cancelled=False, formulation=self).aggregate(models.Sum('amount'))['amount__sum'];
+	    adjustments = AdhocAdjustment.objects.filter(cancelled=False, formulation=self).aggregate(models.Sum('amount'))['amount__sum'];
+
+	    return (quantity_in or 0) - (quantity_out or 0) + (adjustments or 0)
+
+	def get_stock_units(self):
+	    if self.amount:
+	        # e.g. we are counting in tablets of a certain size
+	        return self.state
+	    else:
+	        # we don't know a unit size, so this is continuous, i.e. we are measuring directly in the units
+	        return self.units
 
 class Practitioner(models.Model):
 	first_name = models.CharField(max_length=200)
