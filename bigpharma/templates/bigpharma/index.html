@@ -1,0 +1,83 @@
+{% load forms %}
+<div class="container content-offset">
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <h2>
+        
+        Controllerd Drug Register
+      </h2>
+    </div>
+
+    <div class="panel-body">
+      
+      <div class="row">
+        <div class="col-md-8">
+          
+          <!-- Initial state - choose action -->
+          <div class="panel panel-default" ng-show="state == 'Initial'">
+            <div class="panel-heading">
+              <p class="lead">
+                What are we <b>doing</b>?
+              </p>
+            </div>
+            <div class="panel-body">
+              <p ng-show="profile.has_role('pharmacist')">
+              <button class="btn btn-primary btn-lg"
+                      ng-click="set_state('Booking')"
+                      >
+                {% icon "fa-truck" %}
+                Book in Delivery
+              </button>
+              </p>
+              <p>
+              <button class="btn btn-primary btn-lg"
+                      ng-click="set_state('Booking')"
+                      >
+                {% icon "fa-user" %}
+                Supply to Patient
+              </button>
+              </p>
+              <p>
+              <button class="btn btn-primary btn-lg"
+                      ng-click="set_state('Booking')"
+                      >
+                {% icon "fa-hospital-o" %}
+                Supply to ward
+              </button>
+              </p>
+              <p>
+                <button class="btn btn-primary btn-lg"
+                      ng-click="set_state('Booking')"
+                      >
+                  {% icon "fa-pencil" %}
+                  Make correction
+              </button>
+
+              
+              </p>
+              
+            </div>
+          </div>
+
+          <!-- booking in a delivery -->
+          <div class="panel panel-default" ng-show="state == 'Booking'">
+            <div class="panel-heading">
+              <p class="lead">
+                Book in a <b>delivery</b>.
+              </p>
+            </div>
+            <div class="panel-body">
+              <form class="form form-horizontal col-md-10">
+                {% input label="Product" model="booking.product" lookuplist="['morphene', 'cocaine']"%}
+                {% datepicker label="Date" model="booking.date" %}
+                {% select label="Supplier" model="booking.supplier" lookuplist="['GSK', 'Johnson & Johnson']" %}
+                {% input label="Quantity" model="booking.quantity" %}
+              </form>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

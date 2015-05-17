@@ -56,11 +56,10 @@ class BaseFormulationModel(models.Model):
 	class Meta:
 		abstract=True
 
-
 class Supplier(opal_models.LocatedModel):
 	name = models.CharField(max_length=200)	
 
-
+        
 class SuppliedFromPharmacist(BaseFormulationModel):
 	# when you're giving a one to many formulations to a patient/nurse to take away
 	authorising_practitioner = models.ForeignKey(Practitioner, related_name="authorised_supplies")

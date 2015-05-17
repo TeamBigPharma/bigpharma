@@ -8,5 +8,6 @@ class Application(application.OpalApplication):
     flow_module   = 'bigpharma.flow'
     javascripts   = [
         'js/bigpharma/routes.js',
-        'js/opal/controllers/discharge.js'
+        'js/opal/controllers/discharge.js',
+        'js/bigpharma/controllers/formulation.js'
     ]
