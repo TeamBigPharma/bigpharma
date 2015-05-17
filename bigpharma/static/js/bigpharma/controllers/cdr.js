@@ -1,5 +1,6 @@
 angular.module('opal.controllers').controller(
-    'CDRCtrl', function($scope, $rootScope, profile,
+    'CDRCtrl', function($scope, $rootScope, $http,
+                        profile,
                         growl,
                         formulations){
         
@@ -33,9 +34,16 @@ angular.module('opal.controllers').controller(
         }
 
         $scope.save_ward = function(){
-            $scope.set_state('Initial');
-            growl.info('Supplied to ward');
-            $scope.ward = {};
+            $http.post('/api/supply_to_ward/', $scope.ward).then(
+                function(){
+                    $scope.set_state('Initial');
+                    growl.info('Supplied to ward');
+                    $scope.ward = {};
+                }, 
+                function(data){
+                    console.log(data);
+                    alert(data);
+                });
         }
         
         $scope.back_to_initial = function(){

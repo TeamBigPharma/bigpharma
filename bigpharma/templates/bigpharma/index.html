@@ -129,7 +129,7 @@
           <div class="panel panel-default" ng-show="state == 'Ward'">
             <div class="panel-heading">
               <p class="lead">
-                {% icon "fa-hospital-0" %}
+                {% icon "fa-hospital-o" %}
                 Supply to a <b>ward</b>
               </p>
             </div>
@@ -139,6 +139,7 @@
                 {% select label="Product" model="ward.product" lookuplist="drug_list"%}
                 {% datepicker label="Date" model="ward.date" %}
                 {% input label="Collector" model="ward.collector" %}
+                {% input label="Ward Name" model="ward.ward_name" %}
                 {% input label="Quantity" model="ward.quantity" %}
                 
                 <button class="btn" ng-click="back_to_initial()">
