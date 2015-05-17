@@ -7,7 +7,7 @@ from rest_framework.response import Response
 from rest_framework import viewsets, mixins
 from .models import SuppliedFromPharmacist, DrugFormulation, ReceivedByPharmacist, AdhocAdjustment, Practitioner
 from . import serializers
-
+from django.shortcuts import get_object_or_404
 
 class ReadAndCreateModelViewSet(
                             mixins.CreateModelMixin,
@@ -87,3 +87,10 @@ class ReceivedByPharmacistCreateFormView(CreateView):
 
 class AdhocAdjustmentCreateFormView(CreateView):
     model = AdhocAdjustment
+
+class TransactionListView(ListView):
+    template_name = 'bigpharma/drugformulation_transactions.html'
+    def get_queryset(self):
+        formulation = get_object_or_404(DrugFormulation, pk=self.kwargs['formulation'])
+        transactions = SuppliedFromPharmacist.objects.filter(formulation=formulation)
+        return transactions

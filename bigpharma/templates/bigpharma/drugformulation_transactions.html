@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>.deleted { text-decoration: strikethrough; } td { padding: 30px; } thead td {background-color: #EEE; border: 1px solid #444}</style>
+
+<div class="container content-offset">
+  <div class="row">
+    <div class="col-md-9">
+      <h1>{{ object_list.first.formulation }} </h1>
+      <table style="width: 100%; border: 1px solid #444">
+        <thead>
+          <td>Date</td>
+          <td>Pharmacist</td>
+          <td>Authorised By</td>
+          <td>Collector/Supplier</td>
+          <td>Ward / Patient</td>
+          <td>Amount ({{ object_list.first.formulation.get_stock_units }})</td>
+          <td></td> {# cancel button/link, plus cancellation or correction reason #}
+        </thead>
+        <tbody>
+
+
+
+
+
+
+        {% for transaction in object_list %}
+          <tr {% if transaction.cancelled %}class='deleted'{% endif %}>
+            <td>{{ transaction.datetime }}</td>
+            <td>{{ transaction.pharmacist }}</td>
+            <td>{{ transaction.authorising_practitioner }}</td>
+            <td>{% if transaction.supplied_individual %}{{ transaction.supplied_individual }}{% endif %}
+              {{ transaction.supplier }}</td>
+            <td>{{ transaction.ward }}{{ transaction.patient.demographic_set.get.name }}
+              {% if transaction.collected_by_patient %}
+                <i class="fa fa-user">collected</i>
+              {% endif %}
+            </td>
+            <td>{{ transaction.amount }}</td>
+            <td>
+              {% if not transaction.cancelled %}
+                <a href="tbc">Cancel</a>
+              {% else %}
+                (Cancelled)
+              {% endif %}
+            </td>
+
+          </tr>
+        {% endfor %}
+
+        </tbody>
+        <tfoot>
+          <tr style="background-color: #FFF">
+            <td colspan="5">Current Stock</td>
+            <td>{{ object_list.first.formulation.get_stock }}</td><td></td>
+          </tr>
+        </tfoot>
+
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}

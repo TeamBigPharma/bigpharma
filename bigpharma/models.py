@@ -105,16 +105,16 @@ class Supplier(opal_models.LocatedModel):
 
 
 class SuppliedFromPharmacist(BaseFormulationModel):
-	# when you're giving a one to many formulations to a patient/nurse to take away
-	authorising_practitioner = models.ForeignKey(Practitioner, related_name="authorised_supplies", blank=True, null=True)
-	supplied_individual = models.CharField(max_length=200)
-        ward = models.CharField(max_length=200, blank=True, null=True)
-	collected_by_patient = models.BooleanField(default=False)
-	patient = models.ForeignKey(opal_models.Patient, blank=True, null=True)
+    # when you're giving a one to many formulations to a patient/nurse to take away
+    authorising_practitioner = models.ForeignKey(Practitioner, related_name="authorised_supplies", blank=True, null=True)
+    supplied_individual = models.CharField(max_length=200)
+    ward = models.CharField(max_length=200, blank=True, null=True)
+    collected_by_patient = models.BooleanField(default=False)
+    patient = models.ForeignKey(opal_models.Patient, blank=True, null=True)
 
-	def __unicode__(self):
-		return u'{} {} supplied to {}'.format(
-			self.amount, self.formulation, self.supplied_individual)
+    def __unicode__(self):
+        return u'{} {} supplied to {}'.format(
+            self.amount, self.formulation, self.supplied_individual)
 
 class ReceivedByPharmacist(BaseFormulationModel):
 	# when an external supplier brings in drugs
