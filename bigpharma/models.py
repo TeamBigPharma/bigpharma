@@ -4,6 +4,7 @@ bigpharma models.
 from django.db import models
 from django.contrib.auth import get_user_model
 from django.core.urlresolvers import reverse
+from django.utils import timezone
 
 from opal import models as opal_models
 
@@ -84,7 +85,7 @@ class BaseFormulationModel(models.Model):
 	formulation = models.ForeignKey(DrugFormulation)
 	amount = models.IntegerField()
 	cancelled = models.BooleanField(default=False)
-	datetime = models.DateTimeField(auto_now_add=True)
+	datetime = models.DateTimeField(default=timezone.now)
 	pharmacist = models.ForeignKey(User)
 
 	class Meta:
@@ -100,8 +101,9 @@ class Supplier(opal_models.LocatedModel):
 
 class SuppliedFromPharmacist(BaseFormulationModel):
 	# when you're giving a one to many formulations to a patient/nurse to take away
-	authorising_practitioner = models.ForeignKey(Practitioner, related_name="authorised_supplies")
+	authorising_practitioner = models.ForeignKey(Practitioner, related_name="authorised_supplies", blank=True, null=True)
 	supplied_individual = models.CharField(max_length=200)
+        ward = models.CharField(max_length=200, blank=True, null=True)
 	collected_by_patient = models.BooleanField(default=False)
 	patient = models.ForeignKey(opal_models.Patient, blank=True, null=True)
 

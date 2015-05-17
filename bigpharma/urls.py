@@ -1,13 +1,14 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
-from rest_framework.routers import DefaultRouter
+from opal.core.api import OPALRouter
 from . import views
 
 admin.autodiscover()
 
 from opal.urls import urlpatterns as opatterns
 
-router = DefaultRouter()
+router = OPALRouter()
+router.register(r'supply_to_ward', views.SupplyToWardViewSet)
 router.register(r'drug_formulation', views.DrugFormulationViewSet)
 router.register(r'supplied_from_pharmacist', views.SuppliedFromPharmacistViewSet)
 router.register(r'received_by_pharmacist', views.ReceivedByPharmacistViewSet)
