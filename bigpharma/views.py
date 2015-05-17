@@ -25,25 +25,33 @@ class DrugFormulationViewSet(ReadAndCreateModelViewSet):
 
 class SuppliedFromPharmacistViewSet(ReadAndCreateModelViewSet):
     # permission_classes = (permissions.IsAdminUser,)
-    
+
     def create(self, request):
         request.data['pharmacist'] = request.user.id
         return super(SuppliedFromPharmacistViewSet, self).create(request)
 
-    serializer_class = serializers.SuppliedFromPharmacistSerializer
+    def get_serializer_class(self):
+        if self.action == 'update':
+            return serializers.SuppliedFromPharmacistUpdateSerializer
+        return serializers.SuppliedFromPharmacistSerializer
+
     queryset = SuppliedFromPharmacist.objects.all()
 
 
-class ReceivedByPharmacistViewSet(ReadAndCreateModelViewSet):
-    # permission_classes = (permissions.IsAdminUser,)
-    serializer_class = serializers.ReceivedByPharmacistSerializer
+class ReceivedByPharmacistViewSet(viewsets.ModelViewSet):
+    def get_serializer_class(self):
+        if self.action == 'update':
+            return serializers.ReceivedByPharmacistUpdateSerializer
+        return serializers.ReceivedByPharmacistSerializer
+
     queryset = ReceivedByPharmacist.objects.all()
 
 
-class AdhocAdjustmentViewSet(ReadAndCreateModelViewSet):
-    # permission_classes = (permissions.IsAdminUser,)
-    serializer_class = serializers.AdhocAdjustmentSerializer
-    queryset = AdhocAdjustment.objects.all()
+class AdhocAdjustmentViewSet(viewsets.ModelViewSet):
+    def get_serializer_class(self):
+        if self.action == 'update':
+            return serializers.AdhocAdjustmentUpdateSerializer
+        return serializers.AdhocAdjustmentSerializer
 
 
 class PractitionerViewSet(ReadAndCreateModelViewSet):

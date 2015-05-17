@@ -18,14 +18,41 @@ class SuppliedFromPharmacistSerializer(serializers.ModelSerializer):
         model = SuppliedFromPharmacist
 
 
+class SuppliedFromPharmacistUpdateSerializer(SuppliedFromPharmacistSerializer):
+    """
+    Update serializer - only allow 'cancelled' to be updated.
+    """
+    class Meta:
+        model = SuppliedFromPharmacist
+        fields = ('cancelled',)
+
+
 class ReceivedByPharmacistSerializer(serializers.ModelSerializer):
     class Meta:
         model = ReceivedByPharmacist
 
 
+class ReceivedByPharmacistUpdateSerializer(SuppliedFromPharmacistSerializer):
+    """
+    Update serializer - only allow 'cancelled' to be updated.
+    """
+    class Meta:
+        model = ReceivedByPharmacist
+        fields = ('cancelled',)
+
+
 class AdhocAdjustmentSerializer(serializers.ModelSerializer):
     class Meta:
         model = AdhocAdjustment
+
+
+class AdhocAdjustmentUpdateSerializer(serializers.ModelSerializer):
+    """
+    Update serializer - only allow 'cancelled' to be updated.
+    """
+    class Meta:
+        model = AdhocAdjustment
+        fields = ('cancelled',)
 
 
 class PractitionerSerializer(serializers.ModelSerializer):
